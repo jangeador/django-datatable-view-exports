@@ -1,3 +1,5 @@
 django>=1.9.6
 
 # Additional requirements go here
+
+git+https://github.com/jangeador/django-datatable-view.git@delio#egg=django-datatable-view
