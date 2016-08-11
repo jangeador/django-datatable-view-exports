@@ -3,6 +3,8 @@ from django.views.generic.list import MultipleObjectMixin
 from django.http import HttpResponse
 from django.conf import settings
 from datatableview.views import DatatableMixin as dt_mixin
+from datatableview.views import MultipleDatatableMixin as mdt_mixin
+
 from .datatables import Datatable
 import csv
 
@@ -53,3 +55,21 @@ class DatatableMixin(DatatableCSVResponseMixin, dt_mixin):
 
 class DatatableView(DatatableMixin, ListView):
     """ Implements :py:class:`DatatableMixin` and the standard Django ``ListView``. """
+
+
+class MultipleDatatableMixin(mdt_mixin):
+    """
+    Allow multiple Datatable classes to be given as a dictionary of context names to classes.
+
+    Methods will be dynamically inspected to supply the classes with a queryset and their
+    initialization kwargs, in the form of ``get_FOO_datatable_queryset(**kwargs)`` or
+    ``get_FOO_datatable_kwargs(**kwargs)`` respectively.
+
+    In the case of the kwargs getter, the default generated kwargs can be retrieved via a call to
+    ``get_default_datatable_kwargs(**kwargs)``, where ``**kwargs`` is a reference to the kwargs that
+    came into the ``get_FOO_datatable_kwargs(**kwargs)`` method.
+    """
+
+
+class MultipleDatatableView(MultipleDatatableMixin, TemplateView):
+    pass
