@@ -19,5 +19,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('datatableview_exports.urls', namespace='datatableview_exports')),
+    url(r'^', include('example_app.urls'))
 ]
