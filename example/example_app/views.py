@@ -11,8 +11,9 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import timesince
 
 import datatableview
-from datatableview import Datatable, ValuesDatatable, columns, SkipRecord
-from datatableview.views import DatatableView, MultipleDatatableView, XEditableDatatableView
+from datatableview_exports import DatatableView, Datatable
+from datatableview import ValuesDatatable, columns, SkipRecord
+from datatableview.views import MultipleDatatableView, XEditableDatatableView
 from datatableview.views.legacy import LegacyDatatableView
 from datatableview import helpers
 
@@ -29,7 +30,7 @@ class ResetView(View):
     def get(self, request, *args, **kwargs):
         from django.core.management import call_command
         from django.http import HttpResponse
-        call_command('syncdb')
+        call_command('migrate')
         call_command('loaddata', initial_data_fixture)
         return HttpResponse("Done.")
 
